@@ -3,9 +3,33 @@
  */
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Button} from 'antd-mobile'
+import {Route,HashRouter,Switch,} from 'react-router-dom'
 
-ReactDOM.render(
-  <Button type='primary'>学习</Button>,
-  document.getElementById('root')
-)
+import Login from './components/login'
+import Main from './components/main'
+import Register from './components/register'
+
+
+import store from './redux/store'
+
+
+
+import {Provider} from 'react-redux'
+
+
+ReactDOM.render(<Provider store={store}>
+  <HashRouter>
+    <Switch>
+      <Route path="/login" component={Login}/>
+     
+      <Route path="/register" component={Register}/>
+  
+      <Route  component={Main}/>
+    </Switch>
+  </HashRouter>
+</Provider>,document.getElementById('root'))
+
+
+
+
+
