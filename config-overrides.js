@@ -48,7 +48,7 @@ module.exports = function override(config, env) {
             // theme vars, also can use theme.js instead of this.
             modifyVars: {
               "@brand-primary": "#1cae82", // 正常
-              "@brand-primary-tap": "#1DA57A", // 按下
+              "@brand-primary-tap": "#a51f18", // 按下
             },
           },
         },
@@ -101,3 +101,6 @@ module.exports = function override(config, env) {
   
   return config;
 };
+//redux react-redux redux-thunk
+
+// npm install --save-dev redux-devtools-extension
