@@ -3,14 +3,14 @@
  */
 import {connect} from 'react-redux';
 
-import App from '../components/App'
+import Register from '../components/register'
 
-import {increment,decrement,incrementAcyn} from '../redux/action'
+import {register} from '../redux/action'
 
 export default connect(
   
-  state=>({count:state}),
+  state=>({user:state.user}),
   
-  {increment,decrement,incrementAcyn}
+  {register}
   
-)(App)
+)(Register)

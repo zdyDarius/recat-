@@ -3,12 +3,12 @@
  */
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Route,HashRouter,Switch} from 'react-router-dom'
+import {Route,HashRouter,Switch,} from 'react-router-dom'
 
-import Login from './containers/login'
+import Login from './components/login'
 import Main from './components/main'
-import Register from './containers/counter'
-import './assets/less/index.less'
+import Register from './components/register'
+
 
 import store from './redux/store'
 
@@ -25,7 +25,7 @@ ReactDOM.render(
      
       <Route path="/register" component={Register}/>
   
-      <Route path=""  component={Main}/>
+      <Route  component={Main}/>
     </Switch>
   </HashRouter>
 </Provider>,

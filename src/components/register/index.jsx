@@ -1,97 +1,103 @@
+/**
+ * Created by zdy on 2018/11/1.
+ */
 import React, {Component} from 'react';
 
-import { NavBar,List,InputItem ,Button,WingBlank, WhiteSpace,Radio} from 'antd-mobile'
+import {NavBar,List, InputItem ,Button, WingBlank, WhiteSpace,Radio} from 'antd-mobile'
+
+
+
 import Logo from '../logo'
-import {reqRegister} from '../../api'
+
+import {Redirect} from 'react-router-dom'
+
+
 const Item = List.Item;
 
 
+
 class Register extends Component {
-  state = {
-    username: '',
-    password: '',
-    rePassword: '',
-    type: 'laoban'
+  state={
+    username:' ',
+    password:'',
+    rePassword:'',
+    type:'laoban'
   }
   handleChange=(name,val)=>{
     this.setState({
       [name]:val
     })
-  }
-  register=()=>{
     
+  }
+  
+  onAjax=()=>{
     const {username,password,rePassword,type}=this.state
     
-    console.log(password,rePassword)
+
+    const data={username,password,type,rePassword}
     
-    if(!username||!password||!rePassword||!type){
-      
-       alert('信息不能为空')
-      
-        return
-    }
-    
-    if(password!==rePassword){
-      
-      alert('两次密码不一致,请重新输入')
-    
-         return
-    }
-    
-    const data={username,password,type}
-    
-    reqRegister(data)
-      .then( (response)=> {
-        alert('注册状态')
-        console.log(response);
-        this.setState({
-          password: '',
-          rePassword: '',
-        })
-      })
+     this.props.register(data)
+     
   }
-  goLogin = () => {
-    
-    this.props.history.replace('/login');  //替换浏览历史记录
   
+  goLogin=()=>{
+    this.props.history.replace('./login')
   }
   
   render () {
-    const {type} = this.state;
+
+   const {type}=this.state
+  
+    const { msg,redirectTo} = this.props.user;
+    
+    if (redirectTo) {
+      
+      console.log(redirectTo)
+      //编程式导航
+      // this.props.history.replace(redirectTo);
+      //路由链接跳转
+      return <Redirect to={redirectTo} />
+    }
     return (
-        <div>
-          <NavBar>尚 硅 谷</NavBar>
-          
-          <Logo/>
-          <WingBlank>
-          <form>
-            <List>
-              <WhiteSpace />
-              <InputItem placeholder="请输入用户名"  onChange={(val)=>{this.handleChange('username',val)}}>用户名:</InputItem>
-              <WhiteSpace />
-              <InputItem  placeholder="请输入密码" value={this.state.password} type="password" onChange={(val)=>{this.handleChange('password',val)}}>密码:</InputItem>
-              <WhiteSpace />
-              <InputItem  placeholder="请输入确认密码" value={this.state.rePassword} type="password" onChange={(val)=>{this.handleChange('rePassword',val)}}>确认密码:</InputItem>
-              <Item>
-                用户类型： &nbsp;&nbsp;
-                <Radio   className="my-radio" checked={type === 'dashen'}   onClick={( )=>{this.handleChange('type','dashen')}} >
-                  大神
-                </Radio>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <Radio  className="my-radio" checked={type === 'laoban'} onClick={( )=>{this.handleChange('type','laoban')}}>
-                  老板
-                </Radio>
-              </Item>
-              <WhiteSpace />
-                <Button type="primary" onClick={this.register} >注册</Button>
-              <WhiteSpace />
-                <Button onClick={this.goLogin} >已有账户</Button>
-            </List>
-            
-          </form>
-          </WingBlank>
-          
-        </div>
+          <div>
+              <NavBar>硅 谷 直 聘</NavBar>
+              
+              <Logo/>
+  
+             <WingBlank>
+              
+              {msg?<p className="err">{msg}</p>:''}
+              
+              <WhiteSpace/>
+            <form>
+              <List>
+                <InputItem  placeholder="请输入用户名" type="text" onChange={val=>this.handleChange('username',val)}>用户名:</InputItem>
+                <WhiteSpace/>
+                <InputItem  placeholder="请输入密码" type="password" onChange={val=>this.handleChange('password',val)}>
+                  密码:
+                </InputItem>
+                <WhiteSpace/>
+                <InputItem  placeholder="请再次输入密码" type="password" onChange={val=>this.handleChange('rePassword',val)}>
+                  确认密码:
+                </InputItem>
+                <WhiteSpace/>
+                <Item>
+                  用户类型: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <Radio checked={type === 'dashen'} onClick={()=>this.handleChange('type','dashen')}>大神</Radio>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <Radio checked={type === 'laoban'} onClick={()=>this.handleChange('type','laoban')} >老板</Radio>
+                </Item>
+                <WhiteSpace/>
+                  <Button type="primary" onClick={this.onAjax}>注冊</Button>
+                <WhiteSpace/>
+                
+                  <Button  onClick={this.goLogin}>已有账户</Button>
+                
+              </List>
+            </form>
+  
+            </WingBlank>
+          </div>
     )
   }
 }

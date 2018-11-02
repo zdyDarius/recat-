@@ -1,16 +1,32 @@
 /**
  * Created by zdy on 2018/10/30.
  */
+import {combineReducers} from 'redux';
 
-function count(preState=0,action){
-  console.log(action,preState)
+import {getRedirectPath} from '../utils';
+
+
+const initUserState={
+  username:'',
+  type:'',
+  msg:'',
+  redirectTo:''
+}
+function user(preState=initUserState,action){
+ 
   switch (action.type){
-    case 'INCREMENT':
-      return preState+(+action.data)
-    case 'DECREMENT':
-      return preState-action.data
+    case 'AUTH_SUCCESS':
+      return {username:action.data.username,type:action.data.type,msg:'',redirectTo: getRedirectPath(action.data.type, action.data.header)}
+    case 'ERR_MSG':
+      return {...action.data}
+    case 'UPDATA_SUCCESS':
+      return  action.data
+    case 'UPDATA_MSG':
+      return {...action.data}
     default:
       return preState
   }
 }
-export default count;
+export default combineReducers({
+  user
+});

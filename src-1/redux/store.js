@@ -5,8 +5,8 @@ import {createStore ,applyMiddleware} from 'redux'
 
 import { composeWithDevTools } from 'redux-devtools-extension'
 
-import reducres from './reducres'
+import count from './reducres'
 
  import thunk from 'redux-thunk'
 
-export default createStore(reducres,composeWithDevTools(applyMiddleware(thunk)))
+export default createStore(count,composeWithDevTools(applyMiddleware(thunk)))
