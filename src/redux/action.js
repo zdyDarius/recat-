@@ -4,7 +4,7 @@
 import {reqLogin,reqRegister,UpData} from '../api'
 
 
-
+//重置信息
 export const  authSuccess=(user)=>({type:'AUTH_SUCCESS',data:user})
 
 export const  errMsg=(msg)=>({type:'ERR_MSG',data:msg})
