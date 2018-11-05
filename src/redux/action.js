@@ -1,7 +1,7 @@
 /**
  * Created by zdy on 2018/10/30.
  */
-import {reqLogin,reqRegister,UpData} from '../api'
+import {reqLogin,reqRegister,UpData,reqGetUserInfo,reqGetUserList} from '../api'
 
 
 
@@ -12,6 +12,10 @@ export const  errMsg=(msg)=>({type:'ERR_MSG',data:msg})
 export const  updataSuccess=(user)=>({type:'UPDATA_SUCCESS',data:user})
 
 export const  updataMsg=(user)=>({type:'UPDATA_MSG',data:user})
+
+
+export const  updateUserLiat=userlist=>({type:'UPDATA-USER-LIST',data:userlist})
+export const  resetUserLiat=msg=>({type:'RESET-USER-LIST',data:msg})
 
 export const  register=(data)=>{
   
@@ -77,6 +81,7 @@ export const  login=(data)=>{
 }
 
 
+
 export const  uPdataInfo=(data)=>{
   const {header, info, post,  salary,company} = data;
   if (!header) {
@@ -113,6 +118,11 @@ export const  uPdataInfo=(data)=>{
   }
 }
 
+
+
+
+
+
 export const  uPdataDashenInfo=(data)=>{
   const {header, info, post} = data;
   if (!header) {
@@ -142,5 +152,38 @@ export const  uPdataDashenInfo=(data)=>{
       })
     
     
+  }
+}
+
+export const  getUserInfo=()=>{
+  return dispatch=>{
+     reqGetUserInfo()
+       .then(res=>{
+         const  result=res.data
+         if(result.code===0){
+           dispatch(updataSuccess(result.data))
+         }else {
+         dispatch(updataMsg({msg:result.msg}))
+         }
+       })
+       .catch(err=>{
+         dispatch(updataMsg({msg:'网络不稳定，请重新试试~'}))
+       })
+  }
+}
+export const  GetUserList=(type)=>{
+  return dispatch=>{
+    reqGetUserList(type)
+      .then(res=>{
+        const  result=res.data
+        if(result.code===0){
+          dispatch(updateUserLiat(result.data))
+        }else {
+          dispatch(resetUserLiat({msg:result.msg}))
+        }
+      })
+      .catch(err=>{
+        dispatch(resetUserLiat({msg:'网络不稳定，请重新试试~'}))
+      })
   }
 }

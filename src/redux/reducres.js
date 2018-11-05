@@ -16,17 +16,32 @@ function user(preState=initUserState,action){
  
   switch (action.type){
     case 'AUTH_SUCCESS':
-      return {username:action.data.username,type:action.data.type,msg:'',redirectTo: getRedirectPath(action.data.type, action.data.header)}
+      return {...action.data,msg:'',redirectTo: getRedirectPath(action.data.type, action.data.header)}
     case 'ERR_MSG':
       return {...action.data}
     case 'UPDATA_SUCCESS':
       return  action.data
     case 'UPDATA_MSG':
-      return {...action.data}
+      return action.data
     default:
       return preState
   }
 }
+const initUserListState=[]
+function userList(preState=initUserListState,action){
+
+switch (action.type){
+  case 'UPDATA-USER-LIST':
+    return action.data
+  case 'RESET-USER-LIST':
+    return action.data
+  default:return preState
+}
+
+}
+
+
 export default combineReducers({
-  user
+  user,
+  userList
 });

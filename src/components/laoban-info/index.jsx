@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+import {Redirect} from 'react-router-dom'
 import {NavBar,InputItem,TextareaItem,Button} from 'antd-mobile'
 
 import HeaderSelector from  '../heaser-selector'
@@ -29,9 +30,13 @@ class Laobaninfo extends Component {
     })
   }
   
-  
   render () {
-    const { msg} = this.props.user;
+    const {msg,header} = this.props.user;
+    console.log(header)
+    if(header){
+      
+      return <Redirect to="/laoban"/>
+    }
     return (
            <div>
              <NavBar>老板信息完善</NavBar>

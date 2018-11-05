@@ -4,6 +4,7 @@ import {NavBar,List, InputItem ,Button, WingBlank, WhiteSpace} from 'antd-mobile
 
 import {reqLogin} from '../../api'
 
+import {Redirect} from 'react-router-dom'
 import Logo from '../logo'
 
 
@@ -23,6 +24,7 @@ class Login extends Component {
   onAjax=()=>{
   this.props.login(this.state)
   
+  
   }
   
   
@@ -31,7 +33,15 @@ class Login extends Component {
   }
   
   render () {
-    const { msg} = this.props.user;
+    
+    const { msg,redirectTo} = this.props.user;
+      console.log(redirectTo)
+    if (redirectTo) {
+      //编程式导航
+      // this.props.history.replace(redirectTo);
+      //路由链接跳转
+      return <Redirect to={redirectTo} />
+    }
     return (
       <div>
         <NavBar>硅 谷 直 聘</NavBar>

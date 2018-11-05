@@ -31,7 +31,8 @@ class HeaderSelector extends Component {
     
     return (
       <List renderHeader={() => headerUI} >
-        <Grid data={data} columnNum={5} onClick={this.setHeader}/>
+      
+      <Grid data={data} columnNum={5} onClick={this.setHeader}/>
       </List>
     )
   }

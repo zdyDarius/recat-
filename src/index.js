@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom'
 import {Route,HashRouter,Switch} from 'react-router-dom'
 
 import Login from './containers/login'
-import Main from './components/main'
+import Main from './containers/main'
 import Register from './containers/counter'
 import './assets/less/index.less'
 

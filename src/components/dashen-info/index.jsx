@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import {Redirect} from 'react-router-dom'
+
 import {NavBar,InputItem,TextareaItem,Button} from 'antd-mobile'
 
 import HeaderSelector from  '../heaser-selector'
@@ -29,7 +31,12 @@ class Dasheninfo extends Component {
   
   
   render () {
-    const {msg} = this.props.user;
+    const {msg,header} = this.props.user;
+    console.log(header)
+    if(header){
+      console.log(1111)
+      return <Redirect to="/dashen"/>
+    }
     return (
       <div>
         <NavBar>老板信息完善</NavBar>
